@@ -2,6 +2,7 @@ package com.dsm.moi.domains.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class JwtService {
     private final SignatureAlgorithm signatureAlgorithm;
     private final Key KEY;
 
+    @Autowired
     public JwtService(@Value("${TOKEN_SECURE_KEY:secure-key}") String secure_key) {
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secure_key);
         signatureAlgorithm = SignatureAlgorithm.HS256;
