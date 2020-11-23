@@ -1,8 +1,6 @@
 package com.dsm.moi.domains.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -21,7 +19,8 @@ public class Project {
     @Column(name = "closing_date")
     private LocalDate closingDate;
 
-    @Column(name = "writer")
+    @ManyToOne
+    @JoinColumn(name = "writer", referencedColumnName = "id")
     private String writer;
 
     @Column(name = "personnel")
