@@ -11,6 +11,8 @@ import com.dsm.moi.utils.form.LoginResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthController {
@@ -64,7 +66,9 @@ public class AuthController {
     }
 
     @PostMapping(value = "/token")
-    public void isUsableToken() {
+    public void isUsableToken(HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+
 
     }
 
