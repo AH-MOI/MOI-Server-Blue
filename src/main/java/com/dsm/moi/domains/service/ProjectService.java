@@ -8,6 +8,7 @@ import com.dsm.moi.utils.exception.ProjectNotFoundException;
 import com.dsm.moi.utils.form.MyProjectDetailForm;
 import com.dsm.moi.utils.form.ParticipatingProjectDetailForm;
 import com.dsm.moi.utils.form.ParticipatingProjectResponseForm;
+import com.dsm.moi.utils.form.StudentInformationResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -150,9 +151,14 @@ public class ProjectService {
         form.setPersonnel(personnel);
 
         List<Participation> participationList = participationRepository.findByProjectId(projectId);
-        List<Student> students = participationList.stream()
+        List<StudentInformationResponseForm> students = participationList.stream()
                 .filter(p -> !(p.isPassed()))
-                .map(p -> p.getStudent())
+                .map(p -> {
+                    Student student = p.getStudent();
+                    return new StudentInformationResponseForm(student.getId(), student.getName(), student.getBirthday(),
+                            student.getSchool(), student.getProfile(), student.getGithub(), student.getPhoneNumber(),
+                            student.getArea(), student.getHashtag());
+                })
                 .collect(Collectors.toList());
         form.setAppliedStudent(students);
 

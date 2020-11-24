@@ -12,7 +12,7 @@ public class MyProjectDetailForm {
     private String writer;
     private List<String> areas;
     private List<String> personnel;
-    private List<Student> appliedStudent;
+    private List<StudentInformationResponseForm> appliedStudent;
 
     public MyProjectDetailForm() {}
 
@@ -64,11 +64,11 @@ public class MyProjectDetailForm {
         this.personnel = personnel;
     }
 
-    public List<Student> getAppliedStudent() {
+    public List<StudentInformationResponseForm> getAppliedStudent() {
         return appliedStudent;
     }
 
-    public void setAppliedStudent(List<Student> appliedStudent) {
+    public void setAppliedStudent(List<StudentInformationResponseForm> appliedStudent) {
         this.appliedStudent = appliedStudent;
     }
 }
