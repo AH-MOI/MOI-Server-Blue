@@ -8,14 +8,16 @@ public class JoinRequestForm {
 
     private String id;
     private String password;
+    private String confirmPassword;
     private String name;
     private LocalDate birthday;
     private String school;
 
     public JoinRequestForm() {}
-    public JoinRequestForm(String id, String password, String name, LocalDate birthday, String school) {
+    public JoinRequestForm(String id, String password, String confirmPassword, String name, LocalDate birthday, String school) {
         this.id = id;
         this.password = password;
+        this.confirmPassword = confirmPassword;
         this.name = name;
         this.birthday = birthday;
         this.school = school;
@@ -35,6 +37,14 @@ public class JoinRequestForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getName() {
