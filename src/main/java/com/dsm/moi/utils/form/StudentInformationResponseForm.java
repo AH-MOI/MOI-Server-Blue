@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class StudentInformationResponseForm {
 
-    private String password;
+    private String id;
     private String name;
     private LocalDate birthday;
     private String school;
@@ -17,8 +17,8 @@ public class StudentInformationResponseForm {
     private String hashtag;
 
     public StudentInformationResponseForm() {}
-    public StudentInformationResponseForm(String password, String name, LocalDate birthday, String school, String profile, String github, String phoneNumber, String area, String hashtag) {
-        this.password = password;
+    public StudentInformationResponseForm(String id, String name, LocalDate birthday, String school, String profile, String github, String phoneNumber, String area, String hashtag) {
+        this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.school = school;
@@ -29,12 +29,12 @@ public class StudentInformationResponseForm {
         this.hashtag = hashtag;
     }
 
-    public String getPassword() {
-        return password;
+    public String getId() {
+        return id;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

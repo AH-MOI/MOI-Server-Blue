@@ -5,6 +5,7 @@ import com.dsm.moi.domains.service.JwtService;
 import com.dsm.moi.domains.service.StudentService;
 import com.dsm.moi.utils.exception.TokenInvalidException;
 import com.dsm.moi.utils.form.StudentInformationRequestForm;
+import com.dsm.moi.utils.form.StudentInformationResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +19,23 @@ public class InformationController {
     private JwtService jwtService;
 
     @Autowired
-    public InformationController(StudentService studentService) {
+    public InformationController(StudentService studentService, JwtService jwtService) {
         this.studentService = studentService;
+        this.jwtService = jwtService;
     }
 
     @GetMapping("/student")
+    public StudentInformationResponseForm getStudentInformation(HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+        tokenValidation(authorization);
 
+        String studentId = jwtService.getStudentId(authorization);
+        Student findStudent = studentService.getStudentById(studentId);
+
+        return new StudentInformationResponseForm(findStudent.getId(), findStudent.getName(), findStudent.getBirthday(),
+                findStudent.getSchool(), findStudent.getArea(), findStudent.getProfile(), findStudent.getGithub(),
+                findStudent.getPhoneNumber(), findStudent.getHashtag());
+    }
 
     @PutMapping("/student")
     public void changeStudentInformation(HttpServletRequest request, @RequestBody StudentInformationRequestForm form) {
@@ -40,6 +52,8 @@ public class InformationController {
 
         studentService.updateStudentInformation(student);
     }
+
+
 
     private void tokenValidation(String token) {
         boolean isValid = jwtService.isValid(token);

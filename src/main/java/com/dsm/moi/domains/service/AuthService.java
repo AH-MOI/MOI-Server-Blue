@@ -31,11 +31,6 @@ public class AuthService {
         this.studentRepository = studentRepository;
     }
 
-    public Student getStudentById(String studentId) {
-        return studentRepository.findById(studentId)
-                .orElseThrow(AccountNotFoundException::new);
-    }
-
     public void join(Student student) {
         String userId = student.getId();
         String password = student.getPassword();

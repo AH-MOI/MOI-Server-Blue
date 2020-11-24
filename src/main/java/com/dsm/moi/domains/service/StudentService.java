@@ -26,4 +26,9 @@ public class StudentService {
         findStudent.setHashtag(student.getHashtag());
         findStudent.setProfile(student.getProfile());
     }
+
+    public Student getStudentById(String studentId) {
+        return studentRepository.findById(studentId)
+                .orElseThrow(AccountNotFoundException::new);
+    }
 }

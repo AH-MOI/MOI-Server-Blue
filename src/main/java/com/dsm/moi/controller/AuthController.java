@@ -3,6 +3,7 @@ package com.dsm.moi.controller;
 import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.service.AuthService;
 import com.dsm.moi.domains.service.JwtService;
+import com.dsm.moi.domains.service.StudentService;
 import com.dsm.moi.utils.exception.AccountNotFoundException;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
 import com.dsm.moi.utils.exception.TokenInvalidException;
@@ -21,11 +22,13 @@ public class AuthController {
 
     private AuthService authService;
     private JwtService jwtService;
+    private StudentService studentService;
 
     @Autowired
-    public AuthController(AuthService authService, JwtService jwtService) {
+    public AuthController(AuthService authService, JwtService jwtService, StudentService studentService) {
         this.authService = authService;
         this.jwtService = jwtService;
+        this.studentService = studentService;
     }
 
     @PostMapping(value = "/join")
@@ -58,7 +61,7 @@ public class AuthController {
         if(student.existIdPassword())
             throw new RuleViolationInformationException();
 
-        Student findStudent = authService.getStudentById(id);
+        Student findStudent = studentService.getStudentById(id);
         if(!student.equals(findStudent))
             throw new AccountNotFoundException();
 
