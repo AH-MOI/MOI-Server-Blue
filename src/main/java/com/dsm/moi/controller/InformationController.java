@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping("/info")
@@ -20,9 +19,9 @@ public class InformationController {
 
     private static final Logger log = LoggerFactory.getLogger(InformationController.class);
 
-    private StudentService studentService;
-    private ProjectService projectService;
-    private JwtService jwtService;
+    private final StudentService studentService;
+    private final ProjectService projectService;
+    private final JwtService jwtService;
 
     @Autowired
     public InformationController(StudentService studentService, JwtService jwtService, ProjectService projectService) {
@@ -121,6 +120,7 @@ public class InformationController {
         student.setGithub(form.getGithub());
         student.setHashtag(form.getHashtag());
         student.setProfile(form.getProfile());
+        student.setIntroduce(form.getIntroduce());
 
         studentService.updateStudentInformation(student);
     }
@@ -129,9 +129,6 @@ public class InformationController {
     public AllStudentResponseForm getAllStudent(HttpServletRequest request) {
 
         log.info("GET /info/all-student");
-
-        String authorization = request.getHeader("Authorization");
-        tokenValidation(authorization);
 
         return new AllStudentResponseForm(studentService.getAllStudents());
     }

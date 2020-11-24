@@ -5,22 +5,19 @@ import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.repository.ParticipationRepository;
 import com.dsm.moi.domains.repository.StudentRepository;
 import com.dsm.moi.utils.exception.AccountNotFoundException;
-import com.dsm.moi.utils.exception.ProjectNotFoundException;
 import com.dsm.moi.utils.exception.StudentNotFoundException;
 import com.dsm.moi.utils.form.StudentInformationResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class StudentService {
 
-    private StudentRepository studentRepository;
-    private ParticipationRepository participationRepository;
+    private final StudentRepository studentRepository;
+    private final ParticipationRepository participationRepository;
 
     @Autowired
     public StudentService(StudentRepository studentRepository, ParticipationRepository participationRepository) {
@@ -66,6 +63,7 @@ public class StudentService {
         findStudent.setGithub(student.getGithub());
         findStudent.setHashtag(student.getHashtag());
         findStudent.setProfile(student.getProfile());
+        findStudent.setIntroduce(student.getIntroduce());
         studentRepository.save(findStudent);
     }
 

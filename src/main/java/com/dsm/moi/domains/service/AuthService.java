@@ -2,7 +2,6 @@ package com.dsm.moi.domains.service;
 
 import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.repository.StudentRepository;
-import com.dsm.moi.utils.exception.AccountNotFoundException;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -24,7 +22,7 @@ public class AuthService {
 
     private static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     @Autowired
     public AuthService(StudentRepository studentRepository) {
@@ -33,7 +31,7 @@ public class AuthService {
 
     public boolean isAlreadyExistStudent(String studentId) {
         try {
-            Student student = studentRepository.findById(studentId)
+            studentRepository.findById(studentId)
                     .orElseThrow(Exception::new);
             return false;
         } catch(Exception e) {

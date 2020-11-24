@@ -16,15 +16,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class ProjectService {
 
-    private ParticipationRepository participationRepository;
+    private final ParticipationRepository participationRepository;
 
     @Autowired
     public ProjectService(ParticipationRepository participationRepository) {

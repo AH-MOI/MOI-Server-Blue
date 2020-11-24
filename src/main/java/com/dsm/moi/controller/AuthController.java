@@ -24,9 +24,9 @@ public class AuthController {
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
-    private AuthService authService;
-    private JwtService jwtService;
-    private StudentService studentService;
+    private final AuthService authService;
+    private final JwtService jwtService;
+    private final StudentService studentService;
 
     @Autowired
     public AuthController(AuthService authService, JwtService jwtService, StudentService studentService) {
