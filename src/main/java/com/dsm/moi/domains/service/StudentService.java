@@ -7,11 +7,14 @@ import com.dsm.moi.domains.repository.StudentRepository;
 import com.dsm.moi.utils.exception.AccountNotFoundException;
 import com.dsm.moi.utils.exception.ProjectNotFoundException;
 import com.dsm.moi.utils.exception.StudentNotFoundException;
+import com.dsm.moi.utils.form.StudentInformationResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StudentService {
@@ -23,6 +26,24 @@ public class StudentService {
     public StudentService(StudentRepository studentRepository, ParticipationRepository participationRepository) {
         this.studentRepository = studentRepository;
         this.participationRepository = participationRepository;
+    }
+
+    public List<StudentInformationResponseForm> getAllStudents() {
+        return studentRepository.findAll()
+                .stream()
+                .map(s -> new StudentInformationResponseForm(
+                        s.getId(),
+                        s.getName(),
+                        s.getBirthday(),
+                        s.getSchool(),
+                        s.getProfile(),
+                        s.getGithub(),
+                        s.getPhoneNumber(),
+                        s.getArea(),
+                        s.getHashtag(),
+                        s.getStar()
+                ))
+                .collect(Collectors.toList());
     }
 
     public void acceptProject(String appliedStudentId, String projectId) {

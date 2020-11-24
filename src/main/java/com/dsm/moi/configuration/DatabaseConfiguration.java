@@ -10,17 +10,17 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseConfiguration {
 
-    @Value("${DATABASE_DRIVER:com.mysql.cj.jdbc.Driver}")
-    private String driverClassName = "";
+    @Value("com.mysql.cj.jdbc.Driver")
+    private String driverClassName;
 
-    @Value("${DATABASE_URL:jdbc:mysql://localhost:3306/moi?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC}")
-    private String url = "";
+    @Value("jdbc:mysql://moi-rds.cfc2yl6t4e27.ap-northeast-2.rds.amazonaws.com/moi?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC")
+    private String url;
 
-    @Value("${DATABASE_USERNAME:root}")
-    private String username = "";
+    @Value("admin")
+    private String username;
 
-    @Value("${DATABASE_PASSWORD:1111}")
-    private String password = "";
+    @Value("asdfjkl;")
+    private String password;
 
     @Bean
     public DataSource dataSource() {

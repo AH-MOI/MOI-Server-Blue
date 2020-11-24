@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/info")
@@ -98,6 +99,14 @@ public class InformationController {
         student.setProfile(form.getProfile());
 
         studentService.updateStudentInformation(student);
+    }
+
+    @GetMapping("/all-student")
+    public AllStudentResponseForm getAllStudent(HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+        tokenValidation(authorization);
+
+        return new AllStudentResponseForm(studentService.getAllStudents());
     }
 
     private void tokenValidation(String token) {
