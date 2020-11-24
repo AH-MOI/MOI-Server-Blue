@@ -122,4 +122,8 @@ public class Student {
     public void setHashtag(String hashtag) {
         this.hashtag = hashtag;
     }
+
+    public boolean isNormalInformation() {
+        return id != null && password != null && name != null && birthday != null && school != null;
+    }
 }
