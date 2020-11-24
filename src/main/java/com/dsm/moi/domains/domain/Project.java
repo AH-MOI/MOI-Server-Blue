@@ -22,7 +22,7 @@ public class Project {
 
     @ManyToOne
     @JoinColumn(name = "writer", referencedColumnName = "id")
-    private String writer;
+    private Student writer;
 
     @Column(name = "personnel")
     private String personnel;
@@ -67,11 +67,11 @@ public class Project {
         this.closingDate = closingDate;
     }
 
-    public String getWriter() {
+    public Student getWriter() {
         return writer;
     }
 
-    public void setWriter(String writer) {
+    public void setWriter(Student writer) {
         this.writer = writer;
     }
 

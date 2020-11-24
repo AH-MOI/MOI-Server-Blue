@@ -70,4 +70,16 @@ public class JoinRequestForm {
     public void setSchool(String school) {
         this.school = school;
     }
+
+    @Override
+    public String toString() {
+        return "JoinRequestForm{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", name='" + name + '\'' +
+                ", birthday=" + birthday +
+                ", school='" + school + '\'' +
+                '}';
+    }
 }

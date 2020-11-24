@@ -18,7 +18,7 @@ public class JwtService {
     private final Key KEY;
 
     @Autowired
-    public JwtService(@Value("${TOKEN_SECURE_KEY:secure-key}") String secure_key) {
+    public JwtService(@Value("${TOKEN_SECURE_KEY:abcd}") String secure_key) {
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secure_key);
         signatureAlgorithm = SignatureAlgorithm.HS256;
         KEY = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());

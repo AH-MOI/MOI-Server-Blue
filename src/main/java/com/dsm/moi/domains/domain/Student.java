@@ -138,14 +138,27 @@ public class Student {
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
         return Objects.equals(id, student.id) &&
-                Objects.equals(password, student.password) &&
-                Objects.equals(name, student.name) &&
-                Objects.equals(birthday, student.birthday) &&
-                Objects.equals(school, student.school);
+                Objects.equals(password, student.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, password, name, birthday, school);
+        return Objects.hash(id, password);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", birthday=" + birthday +
+                ", school='" + school + '\'' +
+                ", profile='" + profile + '\'' +
+                ", github='" + github + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", area='" + area + '\'' +
+                ", hashtag='" + hashtag + '\'' +
+                '}';
     }
 }

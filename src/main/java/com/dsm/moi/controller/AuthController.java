@@ -43,9 +43,8 @@ public class AuthController {
 
         if(!student.isNormalInformation())
             throw new RuleViolationInformationException();
-        if(authService.samePassword(student.getPassword(), form.getConfirmPassword()))
+        if(!(authService.samePassword(student.getPassword(), form.getConfirmPassword())))
             throw new RuleViolationInformationException();
-        student.setPassword(authService.encodingPassword(student.getPassword()));
 
         authService.join(student);
     }
@@ -58,8 +57,9 @@ public class AuthController {
         Student student = new Student();
         student.setId(id);
         student.setPassword(password);
-        if(student.existIdPassword())
+        if(!(student.existIdPassword()))
             throw new RuleViolationInformationException();
+        student.setPassword(authService.encodingPassword(student.getPassword()));
 
         Student findStudent = studentService.getStudentById(id);
         if(!student.equals(findStudent))

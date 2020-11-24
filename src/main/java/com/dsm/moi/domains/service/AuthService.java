@@ -40,15 +40,17 @@ public class AuthService {
 
         LocalDate now = LocalDate.now();
 
-        patternCheck(userId, 4, 16, "^[a-zA-Z]*$");
-        patternCheck(password, 4, 16, "^[a-zA-Z0-9|*|!|@|^]*$");
-        patternCheck(name, 1, 12, "^[a-zA-Z]*$");
+        patternCheck(userId, 4, 24, "^[a-zA-Z0-9|@|.]*$");
+        patternCheck(password, 4, 24, "^[a-zA-Z0-9|*|!|@|^]*$");
+        patternCheck(name, 1, 12, "^[a-zA-Zㄱ-ㅎ가-힣]*$");
         patternCheck(birthday.toString(), NON_CHECK, NON_CHECK, "^[0-9]{4}-[0-9]{2}-[0-9]{2}$");
         patternCheck(school, 2, 2, "^(대덕|광주|대구)$");
 
-        if(birthday.isAfter(now))
+        if(birthday.isAfter(now)) {
             throw new RuleViolationInformationException();
+        }
 
+        student.setPassword(encodingPassword(student.getPassword()));
         studentRepository.save(student);
     }
 
@@ -59,9 +61,8 @@ public class AuthService {
         } else {
             isNormal = target.length() >= minimumLength && target.length() <= maximumLength && target.matches(pattern);
         }
-        if (!isNormal) {
+        if (!isNormal)
             throw new RuleViolationInformationException();
-        }
     }
 
     public boolean samePassword(String password, String confirmPassword) {

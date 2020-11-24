@@ -5,12 +5,15 @@ import com.dsm.moi.domains.service.JwtService;
 import com.dsm.moi.domains.service.ProjectService;
 import com.dsm.moi.domains.service.StudentService;
 import com.dsm.moi.utils.exception.TokenInvalidException;
+import com.dsm.moi.utils.form.ParticipatingProjectLastResponseForm;
+import com.dsm.moi.utils.form.ParticipatingProjectResponseForm;
 import com.dsm.moi.utils.form.StudentInformationRequestForm;
 import com.dsm.moi.utils.form.StudentInformationResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/info")
@@ -27,13 +30,22 @@ public class InformationController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/participation/project")
-    public void getProject(HttpServletRequest request) {
+    @GetMapping("/project")
+    public ParticipatingProjectLastResponseForm getMyProject(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 
         String studentId = jwtService.getStudentId(authorization);
-        projectService.getParticipatingProject(studentId);
+        return new ParticipatingProjectLastResponseForm(projectService.getMyProject(studentId));
+    }
+
+    @GetMapping("/participation/project")
+    public ParticipatingProjectLastResponseForm getParticipatingProject(HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+        tokenValidation(authorization);
+
+        String studentId = jwtService.getStudentId(authorization);
+        return new ParticipatingProjectLastResponseForm(projectService.getParticipatingProject(studentId));
     }
 
     @GetMapping("/student")
