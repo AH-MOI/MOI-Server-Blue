@@ -2,7 +2,7 @@ package com.dsm.moi.domains.service;
 
 import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.repository.StudentRepository;
-import com.dsm.moi.utils.exception.NonExistAccountException;
+import com.dsm.moi.utils.exception.AccountNotFoundException;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class AuthService {
 
     public Student getStudentById(String studentId) {
         return studentRepository.findById(studentId)
-                .orElseThrow(NonExistAccountException::new);
+                .orElseThrow(AccountNotFoundException::new);
     }
 
     public void join(Student student) {

@@ -1,6 +1,6 @@
 package com.dsm.moi.utils.handler;
 
-import com.dsm.moi.utils.exception.NonExistAccountException;
+import com.dsm.moi.utils.exception.AccountNotFoundException;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
 import com.dsm.moi.utils.form.ApiErrorResponseForm;
 import org.springframework.http.HttpStatus;
@@ -17,8 +17,8 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(NonExistAccountException.class)
-    public ResponseEntity<ApiErrorResponseForm> nonExistAccountException(NonExistAccountException ex) {
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<ApiErrorResponseForm> accountNotFoundException(AccountNotFoundException ex) {
         ApiErrorResponseForm response = new ApiErrorResponseForm("일치하는 계정을 찾을 수 없습니다.", "일치하는 계정을 찾을 수 없습니다.");
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }

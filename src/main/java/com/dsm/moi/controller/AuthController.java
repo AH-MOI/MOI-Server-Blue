@@ -3,8 +3,9 @@ package com.dsm.moi.controller;
 import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.service.AuthService;
 import com.dsm.moi.domains.service.JwtService;
-import com.dsm.moi.utils.exception.NonExistAccountException;
+import com.dsm.moi.utils.exception.AccountNotFoundException;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
+import com.dsm.moi.utils.exception.TokenInvalidException;
 import com.dsm.moi.utils.form.JoinRequestForm;
 import com.dsm.moi.utils.form.LoginRequestForm;
 import com.dsm.moi.utils.form.LoginResponseForm;
@@ -58,7 +59,7 @@ public class AuthController {
 
         Student findStudent = authService.getStudentById(id);
         if(!student.equals(findStudent))
-            throw new NonExistAccountException();
+            throw new AccountNotFoundException();
 
         String accessToken = jwtService.createToken(id, 1000 * 60 * 30);                    //30분 - AccessToken
         String refreshToken = jwtService.createToken(id, 1000 * 60 * 60 * 24 * 7);          // 2주 - RefreshToken
@@ -69,7 +70,8 @@ public class AuthController {
     public void isUsableToken(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
 
-
+        if(!(jwtService.isValid(authorization) && jwtService.isNotTimeOut(authorization)))
+            throw new TokenInvalidException();
     }
 
     @GetMapping(value = "/access-token")
