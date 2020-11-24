@@ -2,10 +2,12 @@ package com.dsm.moi.controller;
 
 import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.service.AuthService;
+import com.dsm.moi.domains.service.JwtService;
+import com.dsm.moi.utils.exception.NonExistAccountException;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
 import com.dsm.moi.utils.form.JoinRequestForm;
 import com.dsm.moi.utils.form.LoginRequestForm;
-import org.apache.catalina.valves.StuckThreadDetectionValve;
+import com.dsm.moi.utils.form.LoginResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private AuthService authService;
+    private JwtService jwtService;
 
     @Autowired
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, JwtService jwtService) {
         this.authService = authService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping(value = "/join")
@@ -40,8 +44,23 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login")
-    public void login(@RequestBody LoginRequestForm form) {
+    public LoginResponseForm login(@RequestBody LoginRequestForm form) {
+        String id = form.getId();
+        String password = form.getPassword();
 
+        Student student = new Student();
+        student.setId(id);
+        student.setPassword(password);
+        if(student.existIdPassword())
+            throw new RuleViolationInformationException();
+
+        Student findStudent = authService.getStudentById(id);
+        if(!student.equals(findStudent))
+            throw new NonExistAccountException();
+
+        String accessToken = jwtService.createToken(id, 1000 * 60 * 30);                    //30분 - AccessToken
+        String refreshToken = jwtService.createToken(id, 1000 * 60 * 60 * 24 * 7);          // 2주 - RefreshToken
+        return new LoginResponseForm(accessToken, refreshToken);
     }
 
     @PostMapping(value = "/token")

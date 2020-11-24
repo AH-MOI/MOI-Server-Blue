@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "student")
@@ -125,5 +126,26 @@ public class Student {
 
     public boolean isNormalInformation() {
         return id != null && password != null && name != null && birthday != null && school != null;
+    }
+
+    public boolean existIdPassword() {
+        return id != null && password != null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(id, student.id) &&
+                Objects.equals(password, student.password) &&
+                Objects.equals(name, student.name) &&
+                Objects.equals(birthday, student.birthday) &&
+                Objects.equals(school, student.school);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, password, name, birthday, school);
     }
 }

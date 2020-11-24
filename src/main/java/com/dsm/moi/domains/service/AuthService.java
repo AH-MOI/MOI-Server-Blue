@@ -2,6 +2,7 @@ package com.dsm.moi.domains.service;
 
 import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.repository.StudentRepository;
+import com.dsm.moi.utils.exception.NonExistAccountException;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -27,6 +29,11 @@ public class AuthService {
     @Autowired
     public AuthService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+    }
+
+    public Student getStudentById(String studentId) {
+        return studentRepository.findById(studentId)
+                .orElseThrow(NonExistAccountException::new);
     }
 
     public void join(Student student) {

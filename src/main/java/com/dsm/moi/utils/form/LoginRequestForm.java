@@ -5,6 +5,7 @@ public class LoginRequestForm {
     private String id;
     private String password;
 
+    public LoginRequestForm() {}
     public LoginRequestForm(String id, String password) {
         this.id = id;
         this.password = password;
