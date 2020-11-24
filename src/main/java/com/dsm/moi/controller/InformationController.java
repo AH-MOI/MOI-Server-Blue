@@ -6,10 +6,7 @@ import com.dsm.moi.domains.service.StudentService;
 import com.dsm.moi.utils.exception.TokenInvalidException;
 import com.dsm.moi.utils.form.StudentInformationRequestForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +21,9 @@ public class InformationController {
     public InformationController(StudentService studentService) {
         this.studentService = studentService;
     }
+
+    @GetMapping("/student")
+
 
     @PutMapping("/student")
     public void changeStudentInformation(HttpServletRequest request, @RequestBody StudentInformationRequestForm form) {
