@@ -53,8 +53,6 @@ public class InformationController {
         studentService.updateStudentInformation(student);
     }
 
-
-
     private void tokenValidation(String token) {
         boolean isValid = jwtService.isValid(token);
         boolean isNotTimeOut = jwtService.isNotTimeOut(token);
