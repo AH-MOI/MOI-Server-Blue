@@ -2,6 +2,7 @@ package com.dsm.moi.controller;
 
 import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.service.AuthService;
+import com.dsm.moi.utils.exception.RuleViolationInformationException;
 import com.dsm.moi.utils.form.JoinRequestForm;
 import org.apache.catalina.valves.StuckThreadDetectionValve;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class AuthController {
     @PostMapping(value = "/join")
     public void join(@RequestBody JoinRequestForm form) {
         Student student = new Student();
+
+        if(!student.isNormalInformation())
+            throw new RuleViolationInformationException();
 
         student.setId(form.getId());
         student.setPassword(form.getPassword());
