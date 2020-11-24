@@ -1,13 +1,24 @@
 package com.dsm.moi.domains.service;
 
 import com.dsm.moi.domains.domain.Student;
+import com.dsm.moi.domains.repository.StudentRepository;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
+@Service
 public class AuthService {
 
     private static final Integer NON_CHECK = -1;
+
+    private StudentRepository studentRepository;
+
+    @Autowired
+    public AuthService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     public void join(Student student) {
         String userId = student.getId();
@@ -26,6 +37,8 @@ public class AuthService {
 
         if(birthday.isAfter(now))
             throw new RuleViolationInformationException();
+
+        studentRepository.save(student);
     }
 
     private void patternCheck(String target, int minimumLength, int maximumLength, String pattern) {
