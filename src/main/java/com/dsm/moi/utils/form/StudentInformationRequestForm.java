@@ -7,14 +7,16 @@ public class StudentInformationRequestForm {
     private String hashtag;
     private String github;
     private String profile;
+    private String introduce;
 
     public StudentInformationRequestForm() {}
-    public StudentInformationRequestForm(String phoneNumber, String area, String hashtag, String github, String profile) {
+    public StudentInformationRequestForm(String phoneNumber, String area, String hashtag, String github, String profile, String introduce) {
         this.phoneNumber = phoneNumber;
         this.area = area;
         this.hashtag = hashtag;
         this.github = github;
         this.profile = profile;
+        this.introduce = introduce;
     }
 
     public String getPhoneNumber() {
@@ -55,6 +57,14 @@ public class StudentInformationRequestForm {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 
     @Override

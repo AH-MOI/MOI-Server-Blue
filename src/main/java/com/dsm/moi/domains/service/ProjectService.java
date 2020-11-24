@@ -57,7 +57,7 @@ public class ProjectService {
                     String content = p.getProject().getContent();
                     List<String> hashtag = Arrays.asList(p.getProject().getHashtag().substring(1).split("#"));
                     LocalDate closingDate = p.getProject().getClosingDate();
-                    String writer = p.getStudent().getName();
+                    String writer = p.getProject().getWriter().getName();
                     int id = p.getProject().getId();
 
                     return new ParticipatingProjectResponseForm(id, title, content, hashtag, closingDate, writer);
@@ -163,7 +163,7 @@ public class ProjectService {
                     Student student = p.getStudent();
                     return new StudentInformationResponseForm(student.getId(), student.getName(), student.getBirthday(),
                             student.getSchool(), student.getProfile(), student.getGithub(), student.getPhoneNumber(),
-                            student.getArea(), student.getHashtag(), student.getStar());
+                            student.getArea(), student.getHashtag(), student.getStar(), student.getIntroduce());
                 })
                 .collect(Collectors.toList());
         form.setAppliedStudent(students);

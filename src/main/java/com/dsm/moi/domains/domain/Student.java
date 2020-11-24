@@ -45,8 +45,11 @@ public class Student {
     @Column(name = "star")
     private double star;
 
+    @Column(name = "introduce")
+    private String introduce;
+
     public Student() {}
-    public Student(String id, String password, String name, LocalDate birthday, String school, String profile, String github, String phoneNumber, String area, String hashtag, double star) {
+    public Student(String id, String password, String name, LocalDate birthday, String school, String profile, String github, String phoneNumber, String area, String hashtag, double star, String introduce) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -58,6 +61,7 @@ public class Student {
         this.area = area;
         this.hashtag = hashtag;
         this.star = star;
+        this.introduce = introduce;
     }
 
     public String getId() {
@@ -146,6 +150,14 @@ public class Student {
 
     public void setStar(double star) {
         this.star = star;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 
     public boolean isNormalInformation() {

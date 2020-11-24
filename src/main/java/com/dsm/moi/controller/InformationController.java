@@ -102,8 +102,8 @@ public class InformationController {
         Student findStudent = studentService.getStudentById(studentId);
 
         return new StudentInformationResponseForm(findStudent.getId(), findStudent.getName(), findStudent.getBirthday(),
-                findStudent.getSchool(), findStudent.getArea(), findStudent.getProfile(), findStudent.getGithub(),
-                findStudent.getPhoneNumber(), findStudent.getHashtag(), findStudent.getStar());
+                findStudent.getSchool(), findStudent.getProfile(), findStudent.getGithub(), findStudent.getPhoneNumber(),
+                findStudent.getArea(), findStudent.getHashtag(), findStudent.getStar(), findStudent.getIntroduce());
     }
 
     @PatchMapping("/student")

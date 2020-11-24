@@ -16,9 +16,10 @@ public class StudentInformationResponseForm {
     private String area;
     private String hashtag;
     private double star;
+    private String introduce;
 
     public StudentInformationResponseForm() {}
-    public StudentInformationResponseForm(String id, String name, LocalDate birthday, String school, String profile, String github, String phoneNumber, String area, String hashtag, double star) {
+    public StudentInformationResponseForm(String id, String name, LocalDate birthday, String school, String profile, String github, String phoneNumber, String area, String hashtag, double star, String introduce) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
@@ -29,6 +30,7 @@ public class StudentInformationResponseForm {
         this.area = area;
         this.hashtag = hashtag;
         this.star = star;
+        this.introduce = introduce;
     }
 
     public String getId() {
@@ -109,5 +111,13 @@ public class StudentInformationResponseForm {
 
     public void setStar(double star) {
         this.star = star;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 }

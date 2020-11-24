@@ -41,7 +41,8 @@ public class StudentService {
                         s.getPhoneNumber(),
                         s.getArea(),
                         s.getHashtag(),
-                        s.getStar()
+                        s.getStar(),
+                        s.getIntroduce()
                 ))
                 .collect(Collectors.toList());
     }
