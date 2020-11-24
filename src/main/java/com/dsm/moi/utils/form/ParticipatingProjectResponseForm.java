@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ParticipatingProjectResponseForm {
 
+    private int id;
     private String title;
     private String content;
     private List<String> hashtag;
@@ -12,12 +13,21 @@ public class ParticipatingProjectResponseForm {
     private String writer;
 
     public ParticipatingProjectResponseForm() {}
-    public ParticipatingProjectResponseForm(String title, String content, List<String> hashtag, LocalDate closingDate, String writer) {
+    public ParticipatingProjectResponseForm(int id, String title, String content, List<String> hashtag, LocalDate closingDate, String writer) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
         this.closingDate = closingDate;
         this.writer = writer;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

@@ -41,8 +41,9 @@ public class ProjectService {
                     List<String> hashtag = Arrays.asList(p.getProject().getHashtag().substring(1).split("#"));
                     LocalDate closingDate = p.getProject().getClosingDate();
                     String writer = p.getStudent().getName();
+                    int id = p.getProject().getId();
 
-                    return new ParticipatingProjectResponseForm(title, content, hashtag, closingDate, writer);
+                    return new ParticipatingProjectResponseForm(id, title, content, hashtag, closingDate, writer);
                 })
                 .collect(Collectors.toList());
     }
@@ -57,8 +58,9 @@ public class ProjectService {
                     List<String> hashtag = Arrays.asList(p.getProject().getHashtag().substring(1).split("#"));
                     LocalDate closingDate = p.getProject().getClosingDate();
                     String writer = p.getStudent().getName();
+                    int id = p.getProject().getId();
 
-                    return new ParticipatingProjectResponseForm(title, content, hashtag, closingDate, writer);
+                    return new ParticipatingProjectResponseForm(id, title, content, hashtag, closingDate, writer);
                 })
                 .collect(Collectors.toList());
     }

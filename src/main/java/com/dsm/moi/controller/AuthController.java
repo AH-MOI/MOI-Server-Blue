@@ -48,6 +48,8 @@ public class AuthController {
         student.setBirthday(form.getBirthday());
         student.setSchool(form.getSchool());
 
+        if(!(authService.isAlreadyExistStudent(student.getId())))
+            throw new RuleViolationInformationException();
         if(!student.isNormalInformation())
             throw new RuleViolationInformationException();
         if(!(authService.samePassword(student.getPassword(), form.getConfirmPassword())))

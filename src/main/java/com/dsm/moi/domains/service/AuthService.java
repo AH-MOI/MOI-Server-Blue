@@ -31,6 +31,16 @@ public class AuthService {
         this.studentRepository = studentRepository;
     }
 
+    public boolean isAlreadyExistStudent(String studentId) {
+        try {
+            Student student = studentRepository.findById(studentId)
+                    .orElseThrow(Exception::new);
+            return false;
+        } catch(Exception e) {
+            return true;
+        }
+    }
+
     public void join(Student student) {
         String userId = student.getId();
         String password = student.getPassword();

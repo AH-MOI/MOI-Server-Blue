@@ -31,7 +31,7 @@ public class InformationController {
         this.projectService = projectService;
     }
 
-    @PostMapping("/participation/project")
+    @PutMapping("/participation/project")
     public void participatingProject(HttpServletRequest request, @RequestBody ParticipatingProjectRequestForm form) {
 
         log.info("POST /info/participation/project");
@@ -39,7 +39,6 @@ public class InformationController {
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 
-        String studentId = jwtService.getStudentId(authorization);
         studentService.acceptProject(form.getAppliedStudentId(), form.getProjectId());
     }
 
@@ -111,8 +110,6 @@ public class InformationController {
     public void changeStudentInformation(HttpServletRequest request, @RequestBody StudentInformationRequestForm form) {
 
         log.info("PUT /info/student");
-
-        System.out.println(form.toString());
 
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
