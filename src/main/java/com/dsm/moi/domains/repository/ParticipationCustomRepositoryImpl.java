@@ -29,7 +29,7 @@ public class ParticipationCustomRepositoryImpl implements ParticipationCustomRep
     public List<Participation> findByProjectId(String projectId) {
         return entityManager.createQuery("SELECT p FROM Participation p " +
                 "WHERE p.project.id = :projectId")
-                .setParameter("projectId", projectId)
+                .setParameter("projectId", Integer.parseInt(projectId))
                 .getResultList();
     }
 
@@ -39,7 +39,7 @@ public class ParticipationCustomRepositoryImpl implements ParticipationCustomRep
                 "WHERE p.student.id = :studentId " +
                 "AND p.project.id = :projectId", Participation.class)
                 .setParameter("studentId", studentId)
-                .setParameter("projectId", projectId)
+                .setParameter("projectId", Integer.parseInt(projectId))
                 .getResultList()
                 .stream()
                 .findAny();

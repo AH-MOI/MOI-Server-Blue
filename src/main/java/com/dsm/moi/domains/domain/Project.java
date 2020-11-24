@@ -30,9 +30,6 @@ public class Project {
     @Column(name = "hashtag")
     private String hashtag;
 
-    @Column(name = "profile")
-    private String profile;
-
     public Project() {}
 
     public int getId() {
@@ -89,13 +86,5 @@ public class Project {
 
     public void setHashtag(String hashtag) {
         this.hashtag = hashtag;
-    }
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
     }
 }

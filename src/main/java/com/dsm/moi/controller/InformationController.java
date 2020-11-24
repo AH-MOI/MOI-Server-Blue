@@ -6,6 +6,8 @@ import com.dsm.moi.domains.service.ProjectService;
 import com.dsm.moi.domains.service.StudentService;
 import com.dsm.moi.utils.exception.TokenInvalidException;
 import com.dsm.moi.utils.form.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/info")
 public class InformationController {
+
+    private static final Logger log = LoggerFactory.getLogger(InformationController.class);
 
     private StudentService studentService;
     private ProjectService projectService;
@@ -27,8 +31,11 @@ public class InformationController {
         this.projectService = projectService;
     }
 
-    @PostMapping("/participation/project/{projectId}")
+    @PostMapping("/participation/project")
     public void participatingProject(HttpServletRequest request, @RequestBody ParticipatingProjectRequestForm form) {
+
+        log.info("POST /info/participation/project");
+
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 
@@ -38,6 +45,9 @@ public class InformationController {
 
     @GetMapping("/project")
     public ParticipatingProjectLastResponseForm getMyProject(HttpServletRequest request) {
+
+        log.info("GET /info/project");
+
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 
@@ -47,6 +57,9 @@ public class InformationController {
 
     @GetMapping("/participation/project")
     public ParticipatingProjectLastResponseForm getParticipatingProject(HttpServletRequest request) {
+
+        log.info("GET /info/participation/project");
+
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 
@@ -56,6 +69,9 @@ public class InformationController {
 
     @GetMapping("project/{projectId}")
     public MyProjectDetailForm getMyProjectDetail(HttpServletRequest request, @PathVariable("projectId") String projectId) {
+
+        log.info(String.format("GET /info/project/%s", projectId));
+
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 
@@ -65,6 +81,9 @@ public class InformationController {
 
     @GetMapping("project/participation/{projectId}")
     public ParticipatingProjectDetailForm getParticipatingProjectDetail(HttpServletRequest request, @PathVariable("projectId") String projectId) {
+
+        log.info(String.format("GET /info/project/participation/%s", projectId));
+
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 
@@ -74,6 +93,9 @@ public class InformationController {
 
     @GetMapping("/student")
     public StudentInformationResponseForm getStudentInformation(HttpServletRequest request) {
+
+        log.info("GET /info/student");
+
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 
@@ -87,6 +109,11 @@ public class InformationController {
 
     @PutMapping("/student")
     public void changeStudentInformation(HttpServletRequest request, @RequestBody StudentInformationRequestForm form) {
+
+        log.info("PUT /info/student");
+
+        System.out.println(form.toString());
+
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 
@@ -103,6 +130,9 @@ public class InformationController {
 
     @GetMapping("/all-student")
     public AllStudentResponseForm getAllStudent(HttpServletRequest request) {
+
+        log.info("GET /info/all-student");
+
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
 

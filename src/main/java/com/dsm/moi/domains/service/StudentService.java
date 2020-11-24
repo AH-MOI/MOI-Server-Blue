@@ -65,6 +65,7 @@ public class StudentService {
         findStudent.setGithub(student.getGithub());
         findStudent.setHashtag(student.getHashtag());
         findStudent.setProfile(student.getProfile());
+        studentRepository.save(findStudent);
     }
 
     public Student getStudentById(String studentId) {

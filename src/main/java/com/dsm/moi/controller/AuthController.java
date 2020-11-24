@@ -11,6 +11,8 @@ import com.dsm.moi.utils.form.AccessTokenResponseForm;
 import com.dsm.moi.utils.form.JoinRequestForm;
 import com.dsm.moi.utils.form.LoginRequestForm;
 import com.dsm.moi.utils.form.LoginResponseForm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthController {
+
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     private AuthService authService;
     private JwtService jwtService;
@@ -33,6 +37,9 @@ public class AuthController {
 
     @PostMapping(value = "/join")
     public void join(@RequestBody JoinRequestForm form) {
+
+        log.info("POST /auth/join");
+
         Student student = new Student();
 
         student.setId(form.getId());
@@ -51,6 +58,9 @@ public class AuthController {
 
     @PostMapping(value = "/login")
     public LoginResponseForm login(@RequestBody LoginRequestForm form) {
+
+        log.info("POST /info/login");
+
         String id = form.getId();
         String password = form.getPassword();
 
@@ -65,13 +75,16 @@ public class AuthController {
         if(!student.equals(findStudent))
             throw new AccountNotFoundException();
 
-        String accessToken = jwtService.createToken(id, 1000 * 60 * 30);                    // 30분 - AccessToken
+        String accessToken = jwtService.createToken(id, 1000 * 60 * 30);              // 30분 - AccessToken
         String refreshToken = jwtService.createToken(id, 1000 * 60 * 60 * 24 * 7);          // 2주 - RefreshToken
         return new LoginResponseForm(accessToken, refreshToken);
     }
 
     @PostMapping(value = "/token")
     public void isUsableToken(HttpServletRequest request) {
+
+        log.info("POST /info/token");
+
         String authorization = request.getHeader("Authorization");
 
         if(!(jwtService.isValid(authorization) && jwtService.isNotTimeOut(authorization)))
@@ -80,6 +93,9 @@ public class AuthController {
 
     @GetMapping(value = "/access-token")
     public AccessTokenResponseForm tokenIssuance(HttpServletRequest request) {
+
+        log.info("GET /info/access-token");
+
         String refreshToken = request.getHeader("Authorization");
 
         if(!(jwtService.isValid(refreshToken) && jwtService.isNotTimeOut(refreshToken)))

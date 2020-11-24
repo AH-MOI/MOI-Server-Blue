@@ -46,6 +46,19 @@ public class Student {
     private double star;
 
     public Student() {}
+    public Student(String id, String password, String name, LocalDate birthday, String school, String profile, String github, String phoneNumber, String area, String hashtag, double star) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.birthday = birthday;
+        this.school = school;
+        this.profile = profile;
+        this.github = github;
+        this.phoneNumber = phoneNumber;
+        this.area = area;
+        this.hashtag = hashtag;
+        this.star = star;
+    }
 
     public String getId() {
         return id;

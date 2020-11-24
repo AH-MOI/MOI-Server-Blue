@@ -56,4 +56,15 @@ public class StudentInformationRequestForm {
     public void setProfile(String profile) {
         this.profile = profile;
     }
+
+    @Override
+    public String toString() {
+        return "StudentInformationRequestForm{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", area='" + area + '\'' +
+                ", hashtag='" + hashtag + '\'' +
+                ", github='" + github + '\'' +
+                ", profile='" + profile + '\'' +
+                '}';
+    }
 }
