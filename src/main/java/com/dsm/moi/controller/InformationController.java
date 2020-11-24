@@ -2,6 +2,7 @@ package com.dsm.moi.controller;
 
 import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.service.JwtService;
+import com.dsm.moi.domains.service.ProjectService;
 import com.dsm.moi.domains.service.StudentService;
 import com.dsm.moi.utils.exception.TokenInvalidException;
 import com.dsm.moi.utils.form.StudentInformationRequestForm;
@@ -16,12 +17,23 @@ import javax.servlet.http.HttpServletRequest;
 public class InformationController {
 
     private StudentService studentService;
+    private ProjectService projectService;
     private JwtService jwtService;
 
     @Autowired
-    public InformationController(StudentService studentService, JwtService jwtService) {
+    public InformationController(StudentService studentService, JwtService jwtService, ProjectService projectService) {
         this.studentService = studentService;
         this.jwtService = jwtService;
+        this.projectService = projectService;
+    }
+
+    @GetMapping("/participation/project")
+    public void getProject(HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+        tokenValidation(authorization);
+
+        String studentId = jwtService.getStudentId(authorization);
+        projectService.getParticipatingProject(studentId);
     }
 
     @GetMapping("/student")
