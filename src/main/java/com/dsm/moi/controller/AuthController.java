@@ -6,6 +6,7 @@ import com.dsm.moi.domains.service.JwtService;
 import com.dsm.moi.utils.exception.AccountNotFoundException;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
 import com.dsm.moi.utils.exception.TokenInvalidException;
+import com.dsm.moi.utils.form.AccessTokenResponseForm;
 import com.dsm.moi.utils.form.JoinRequestForm;
 import com.dsm.moi.utils.form.LoginRequestForm;
 import com.dsm.moi.utils.form.LoginResponseForm;
@@ -61,7 +62,7 @@ public class AuthController {
         if(!student.equals(findStudent))
             throw new AccountNotFoundException();
 
-        String accessToken = jwtService.createToken(id, 1000 * 60 * 30);                    //30분 - AccessToken
+        String accessToken = jwtService.createToken(id, 1000 * 60 * 30);                    // 30분 - AccessToken
         String refreshToken = jwtService.createToken(id, 1000 * 60 * 60 * 24 * 7);          // 2주 - RefreshToken
         return new LoginResponseForm(accessToken, refreshToken);
     }
@@ -75,7 +76,14 @@ public class AuthController {
     }
 
     @GetMapping(value = "/access-token")
-    public void tokenIssuance() {
+    public AccessTokenResponseForm tokenIssuance(HttpServletRequest request) {
+        String refreshToken = request.getHeader("Authorization");
 
+        if(!(jwtService.isValid(refreshToken) && jwtService.isNotTimeOut(refreshToken)))
+            throw new TokenInvalidException();
+
+        String studentId = jwtService.getStudentId(refreshToken);
+        String accessToken = jwtService.createToken(studentId, 1000 * 60 * 30);
+        return new AccessTokenResponseForm(accessToken);
     }
 }
