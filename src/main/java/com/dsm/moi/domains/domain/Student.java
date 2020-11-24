@@ -42,6 +42,9 @@ public class Student {
     @Column(name = "hashtag")
     private String hashtag;
 
+    @Column(name = "star")
+    private double star;
+
     public Student() {}
 
     public String getId() {
@@ -122,6 +125,14 @@ public class Student {
 
     public void setHashtag(String hashtag) {
         this.hashtag = hashtag;
+    }
+
+    public double getStar() {
+        return star;
+    }
+
+    public void setStar(double star) {
+        this.star = star;
     }
 
     public boolean isNormalInformation() {

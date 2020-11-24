@@ -1,19 +1,38 @@
 package com.dsm.moi.domains.service;
 
+import com.dsm.moi.domains.domain.Participation;
 import com.dsm.moi.domains.domain.Student;
+import com.dsm.moi.domains.repository.ParticipationRepository;
 import com.dsm.moi.domains.repository.StudentRepository;
 import com.dsm.moi.utils.exception.AccountNotFoundException;
+import com.dsm.moi.utils.exception.ProjectNotFoundException;
+import com.dsm.moi.utils.exception.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
 
     private StudentRepository studentRepository;
+    private ParticipationRepository participationRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, ParticipationRepository participationRepository) {
         this.studentRepository = studentRepository;
+        this.participationRepository = participationRepository;
+    }
+
+    public void acceptProject(String appliedStudentId, String projectId) {
+        List<Participation> projectList = participationRepository.findByProjectId(projectId);
+        Participation participation = projectList.stream()
+                .filter(p -> !p.isPassed())
+                .filter(p -> p.getStudent().getId().equals(appliedStudentId))
+                .findAny()
+                .orElseThrow(StudentNotFoundException::new);
+        participation.setPassed(true);
     }
 
     public void updateStudentInformation(Student student) {

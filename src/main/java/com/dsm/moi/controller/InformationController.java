@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping("/info")
@@ -25,6 +24,15 @@ public class InformationController {
         this.studentService = studentService;
         this.jwtService = jwtService;
         this.projectService = projectService;
+    }
+
+    @PostMapping("/participation/project/{projectId}")
+    public void participatingProject(HttpServletRequest request, @RequestBody ParticipatingProjectRequestForm form) {
+        String authorization = request.getHeader("Authorization");
+        tokenValidation(authorization);
+
+        String studentId = jwtService.getStudentId(authorization);
+        studentService.acceptProject(form.getAppliedStudentId(), form.getProjectId());
     }
 
     @GetMapping("/project")
@@ -73,7 +81,7 @@ public class InformationController {
 
         return new StudentInformationResponseForm(findStudent.getId(), findStudent.getName(), findStudent.getBirthday(),
                 findStudent.getSchool(), findStudent.getArea(), findStudent.getProfile(), findStudent.getGithub(),
-                findStudent.getPhoneNumber(), findStudent.getHashtag());
+                findStudent.getPhoneNumber(), findStudent.getHashtag(), findStudent.getStar());
     }
 
     @PutMapping("/student")

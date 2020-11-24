@@ -157,7 +157,7 @@ public class ProjectService {
                     Student student = p.getStudent();
                     return new StudentInformationResponseForm(student.getId(), student.getName(), student.getBirthday(),
                             student.getSchool(), student.getProfile(), student.getGithub(), student.getPhoneNumber(),
-                            student.getArea(), student.getHashtag());
+                            student.getArea(), student.getHashtag(), student.getStar());
                 })
                 .collect(Collectors.toList());
         form.setAppliedStudent(students);
