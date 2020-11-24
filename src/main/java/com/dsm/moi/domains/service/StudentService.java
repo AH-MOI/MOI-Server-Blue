@@ -20,17 +20,10 @@ public class StudentService {
         Student findStudent = studentRepository.findById(student.getId())
                 .orElseThrow(AccountNotFoundException::new);
 
-        if(!student.equals(findStudent)) {
-            findStudent.setId(student.getId());
-            findStudent.setPassword(student.getPassword());
-            findStudent.setName(student.getName());
-            findStudent.setBirthday(student.getBirthday());
-            findStudent.setSchool(student.getSchool());
-            findStudent.setArea(student.getArea());
-            findStudent.setGithub(student.getGithub());
-            findStudent.setProfile(student.getProfile());
-            findStudent.setHashtag(student.getHashtag());
-            findStudent.setPhoneNumber(student.getPhoneNumber());
-        }
+        findStudent.setPhoneNumber(student.getPhoneNumber());
+        findStudent.setArea(student.getArea());
+        findStudent.setGithub(student.getGithub());
+        findStudent.setHashtag(student.getHashtag());
+        findStudent.setProfile(student.getProfile());
     }
 }
