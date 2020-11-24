@@ -3,15 +3,24 @@ package com.dsm.moi.domains.service;
 import com.dsm.moi.domains.domain.Student;
 import com.dsm.moi.domains.repository.StudentRepository;
 import com.dsm.moi.utils.exception.RuleViolationInformationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.time.LocalDate;
 
 @Service
 public class AuthService {
 
     private static final Integer NON_CHECK = -1;
+
+    private static final String ALGORITHM = "SHA-512";
+    private static final String ENCODING = "UTF-8";
+
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
     private StudentRepository studentRepository;
 
@@ -51,5 +60,23 @@ public class AuthService {
         if (!isNormal) {
             throw new RuleViolationInformationException();
         }
+    }
+
+    public boolean samePassword(String password, String confirmPassword) {
+        return password.equals(confirmPassword);
+    }
+
+    public String encodingPassword(String original) {
+        String resultHex = null;
+        try {
+            MessageDigest digest = MessageDigest.getInstance(ALGORITHM);
+            digest.reset();
+            digest.update(original.getBytes(ENCODING));
+            resultHex = String.format("%0128x", new BigInteger(1, digest.digest()));
+        } catch(Exception e) {
+            log.error("현재 인코딩 방식 또는 해시 알고리즘이 잘못 되었습니다.");
+            e.printStackTrace();
+        }
+        return resultHex;
     }
 }
