@@ -31,10 +31,10 @@ public class InformationController {
         this.projectService = projectService;
     }
 
-    @PutMapping("/participation/project")
+    @PatchMapping("/participation/project")
     public void participatingProject(HttpServletRequest request, @RequestBody ParticipatingProjectRequestForm form) {
 
-        log.info("POST /info/participation/project");
+        log.info("PATCH /info/participation/project");
 
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
@@ -106,10 +106,10 @@ public class InformationController {
                 findStudent.getPhoneNumber(), findStudent.getHashtag(), findStudent.getStar());
     }
 
-    @PutMapping("/student")
+    @PatchMapping("/student")
     public void changeStudentInformation(HttpServletRequest request, @RequestBody StudentInformationRequestForm form) {
 
-        log.info("PUT /info/student");
+        log.info("PATCH /info/student");
 
         String authorization = request.getHeader("Authorization");
         tokenValidation(authorization);
